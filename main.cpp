@@ -70,11 +70,7 @@ string checkFocused(string list){
 
       buffer += " _NET_WM_STATE";
 
-      memset(command, std::size(command), '\0');
-
-      strcpy(command, buffer.c_str()); // copying string data to char for sent the command
-
-      FILE *checking = popen(command, "r");
+      FILE *checking = popen(buffer.c_str(), "r");
 
       memset(command, std::size(command), '\0');
 
@@ -110,9 +106,7 @@ void determineDirection(string id){
   preCommand.push_back(invert);
   preCommand += "|Width'";
 
-  strcpy(command, preCommand.c_str()); // conpying string data to char for sent the commmand
-
-  FILE *properties = popen(command, "r");
+  FILE *properties = popen(preCommand.c_str(), "r");
 
   memset(command, std::size(command), '\0');
 
