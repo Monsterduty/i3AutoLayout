@@ -35,6 +35,6 @@ exec --no-startup-id i3-autolayout
 if your file is in a folder that $PATH doesn't have, add a absolute path:
 ```bash
 
- exec --no-startup-id /opt/programs/i3-auto-layout
+ exec --no-startup-id /opt/programs/i3-autolayout
 
 ```
