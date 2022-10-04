@@ -70,7 +70,11 @@ string checkFocused(string list){
 
       buffer += " _NET_WM_STATE";
 
-      FILE *checking = popen(buffer.c_str(), "r");
+      memset(command, std::size(command), '\0');
+
+      strcpy(command, buffer.c_str()); // copying string data to char for sent the command
+
+      FILE *checking = popen(command, "r");
 
       memset(command, std::size(command), '\0');
 
@@ -106,7 +110,9 @@ void determineDirection(string id){
   preCommand.push_back(invert);
   preCommand += "|Width'";
 
-  FILE *properties = popen(preCommand.c_str(), "r");
+  strcpy(command, preCommand.c_str()); // conpying string data to char for sent the commmand
+
+  FILE *properties = popen(command, "r");
 
   memset(command, std::size(command), '\0');
 
@@ -152,15 +158,31 @@ int main(int argc, char **argv){
 
   Window allWIndows = RootWindow(display, 0); // getting the root window
 
-  XSelectInput(display, allWIndows, EnterWindowMask | StructureNotifyMask );	// selecting the type of event to check
+  XSelectInput(display, allWIndows, SubstructureNotifyMask | EnterWindowMask | StructureNotifyMask );	// selecting the type of event to check
+
 
   while (True) {
+
 
     XEvent event;
 
     XNextEvent(display, &event);
 
     switch(event.type){
+
+      case DestroyNotify:
+
+        listOfWindows = checkWindows();
+        focusedWindow = checkFocused(listOfWindows);
+        if ( focusedWindow == "NULL" ){ break; };
+        determineDirection(focusedWindow);      
+
+      case CreateNotify:
+
+        listOfWindows = checkWindows();
+        focusedWindow = checkFocused(listOfWindows);
+        if ( focusedWindow == "NULL" ){ break; };
+        determineDirection(focusedWindow);      
 
       case EnterNotify:
 
