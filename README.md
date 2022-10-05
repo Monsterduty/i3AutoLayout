@@ -3,8 +3,6 @@
 ## dependencies
 * g++
 * make
-* xprop
-* xwininfo
 * xlib
 * xorg
 * i3wm
