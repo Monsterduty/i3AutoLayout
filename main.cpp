@@ -13,6 +13,13 @@ using std::cout;
 using std::endl;
 using std::string;
 
+int errorCalback( Display *dpy, XErrorEvent *err )
+{
+  // this is a empty handler to prevent app crash if the requested windows does not exist!
+  // also you can use this for your needs.
+  return 0;
+};
+
 int main(int argc, char **argv){
 
   string listOfWindows = "", focusedWindow = "";
@@ -22,6 +29,8 @@ int main(int argc, char **argv){
   int a = 0, b = 0;
   unsigned int c,d;
   int revert;
+
+  XSetErrorHandler( errorCalback );
 
   Display* display = XOpenDisplay(NULL); // creating a conection with X server
 
@@ -41,7 +50,8 @@ int main(int argc, char **argv){
       case MapNotify:
 
         XGetInputFocus(display, &focus, &revert); // returning the window focused
-        XGetGeometry(display, focus, &who, &a, &b, &width, &height, &c, &d); //getting the geometry that whe will use for calculate the position for a new window
+        XGetGeometry(display, focus, &who, &a, &b, &width, &height, &c, &d); //getting the geometry that we will use for calculate the position for a new window
+
         if ( width >= height ){ i3ipc_run_command("split h"); };
         if ( height > width ) { i3ipc_run_command("split v"); };
 
@@ -51,7 +61,6 @@ int main(int argc, char **argv){
     };
 
   }
-
 
 return 0;
 }

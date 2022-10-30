@@ -1,3 +1,5 @@
+CC = g++
+
 i3-autolayout: main.cpp
 
-	g++ main.cpp -o i3-autolayout -lX11
+	$(CC) main.cpp -o i3-autolayout -lX11
