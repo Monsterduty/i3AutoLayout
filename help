@@ -1,0 +1,10 @@
+i3-autolayout
+a linux daemon for controling layout of i3-wm windows
+
+USAGE:
+  i3-autolayout --flag
+
+FLAGS:  
+  --help   ->show this help
+  --daemon ->daemonize the proccess
+  --output ->show events detected and actions done

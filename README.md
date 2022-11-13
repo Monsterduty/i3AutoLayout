@@ -24,7 +24,15 @@ just copy the executable where you want
 sudo cp i3-autolayout /usr/local/bin
 
 ```
-then add in your i3 config file a line that say something like:
+then daemonize the proccess from terminal
+
+```bash
+
+i3-autolayout --daemon
+
+```
+or add in your i3 config file a line that say something like:
+
 ```bash
 
 exec --no-startup-id i3-autolayout
